@@ -2,8 +2,12 @@
 import sys
 import random
 name=input("Enter your name:")
-t=int(input("How many turns you want to play: "))
-if(t>50):
+try:
+    t=int(input("How many turns you want to play: "))
+except ValueError:
+    print("Invalid input. Please enter a valid integer.Rerun the program.")
+    sys.exit()
+if(t>50 and t):
     print("Limit Exceed!")
     sys.exit()
 print("Let's Play:-)")
@@ -15,14 +19,13 @@ choice={
 }
 cScore=uScore=0            
 i=0
-while(i<=t):
+while(i<t):
     uChoice=input("Choose 'S' for snake, 'W' for water and 'G' for gun: ").upper()
     cChoice=random.choice(options)
     if(uChoice not in options):
         print("Invalid choice.")
+        continue
     elif(uChoice==cChoice):
-        cScore+=1
-        uScore+=1
         print(f"You have chosen {choice[uChoice]} and Computer has chosen {choice[cChoice]}.")
         print("It's a draw")
     else:
@@ -45,8 +48,6 @@ while(i<=t):
         elif(cChoice=='G' and uChoice=='W'):
             uScore+=1
             print("You Won!")
-        else:
-            print("Invalid Choice!")
     print(f"Computer Score\t|\t{name} Score")
     print(f"\t{cScore}\t|\t\t{uScore}")
     i+=1
